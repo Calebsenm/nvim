@@ -17,6 +17,11 @@ vim.api.nvim_set_keymap('n', '<c-s>', ':w<CR>', { noremap = true })
 vim.api.nvim_set_keymap('i', '<c-s>', '<c-o>:w<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<c-e>', ':Neotree toggle<CR>',{noremap = true} )
 
+-- for telescope 
+vim.api.nvim_set_keymap('n', '<c-n>', ':Telescope find_files<CR>', {noremap = true})
+
 -- colors
 vim.o.termguicolors = true
 
+-- For install new: PackerSync
+-- packer.nvim
