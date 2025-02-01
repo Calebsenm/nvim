@@ -5,7 +5,12 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-    
+
+    -- for terminal 
+    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+        require("toggleterm").setup()
+    end}
+
     --  for telescope
     use {
         'nvim-telescope/telescope.nvim',tag = '0.1.8', branch = '0.1.x',
@@ -22,7 +27,7 @@ return require('packer').startup(function(use)
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
-            -- "3rd/image.nvim", -- Optional image support in preview window: See # Preview Mode for more information
+            "3rd/image.nvim", -- Optional image support in preview window: See # Preview Mode for more information
         }
     }
 
