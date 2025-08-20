@@ -1,24 +1,37 @@
-
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
-  -- see :help lsp-zero-keybindings
-  -- to learn the available actions
-  lsp_zero.default_keymaps({buffer = bufnr})
+    -- keymaps por defecto
+    lsp_zero.default_keymaps({ buffer = bufnr })
+
+    -- formatear al guardar (si el LSP soporta)
+    if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr })
+            end,
+        })
+    end
 end)
 
--- to learn how to use mason.nvim
--- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
 
-require('mason').setup({})
+-- mason: gestor de servidores
+require('mason').setup()
 
+-- mason-lspconfig: integración con nvim-lspconfig
 require('mason-lspconfig').setup({
-  ensure_installed = {},
-  handlers = {
-    function(server_name)
-      require('lspconfig')[server_name].setup({})
-    end,
-  },
+    ensure_installed = {
+        "gopls",
+        "ts_ls",
+        "sqls",
+        "lua_ls",
+    },
+
+    handlers = {
+        lsp_zero.default_setup,
+    },
 })
 
-
+lsp_zero.setup()
