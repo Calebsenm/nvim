@@ -23,6 +23,7 @@ require('mason').setup()
 -- mason-lspconfig: integración con nvim-lspconfig
 require('mason-lspconfig').setup({
     ensure_installed = {
+        "jdtls",
         "gopls",
         "ts_ls",
         "sqls",
